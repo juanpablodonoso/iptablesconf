@@ -1,8 +1,8 @@
 #!/bin/bash
-# Set firewall configuration with iptables rules for differents servers use
+# Set firewall configuration with iptables rules for differents servers use and secure the a web farm.
 # Pablo - github.com/juanpablodonoso
 # Add - @reboot /thiscriptpath/iptables_set.sh - to crontab file to run at boot
-# Run sudo iptables_set.sh && iptbles -L -n -v 
+# Run sudo iptables_set.sh && sudo iptbles -L -n -v 
 
 
 # (1) For delete all actual rules (clean configuration)
@@ -46,7 +46,7 @@ iptables -A OUTPUT -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
 iptables -A INPUT -s 192.168.56.103 # load balancer server
 
 # (5) for machines uses as firewall only and after enable ip-forwading: 
-# To enable fordwading the traffic from firewall machine to destination server:
+# To enable fordwading the traffic from firewall machine (first line machine in the web farm) to destination server:
 # Example: 
 # 192.168.56.103 is the destination server, using enp0s8 in/out network interface and http only traffic
  iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination 192.168.56.103
