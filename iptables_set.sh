@@ -39,8 +39,11 @@ iptables -A INPUT -p tcp --dport 22 -j ACCEPT
 iptables -A OUTPUT -p tcp --sport 22 -j ACCEPT
 
 # enable dns (port 53)
-# iptables -A INPUT -m state --state NEW -p udp --dport 53-j ACCEPT
+# iptables -A INPUT -m state --state NEW -p udp --dport 53 -j ACCEPT
 # iptables -A INPUT -m state --state NEW -p tcp --dport 53 -j ACCEPT
+
+# enables mysql (port 3306)
+iptables -A INPUT -i eth0 -p tcp -m tcp --dport 3306 -j ACCEP
 
 # (4) enable output with new, established and related 
 iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
